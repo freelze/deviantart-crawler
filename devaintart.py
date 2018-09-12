@@ -6,7 +6,6 @@
 
 # import deviantart library
 import deviantart
-
 import csv
 import os
 import re
@@ -14,20 +13,18 @@ import requests
 import time
 import datetime
 from multiprocessing import Pool
-
 #from pprint import pprint
 
 def parsejobs(deviation):
-
-	da = deviantart.Api("", "")
-	__username__ = "" #username
+	# create an API object with your client credentials
+	da = deviantart.Api("", "") # YOUR_CLIENT_ID, YOUR_CLIENT_SECRET
+	# the name of the user we want to fetch deviations from
+	__username__ = ""
 
 	image_path = './{}/'.format(__username__)
 
 	da_appurl = deviation.deviationid
-	
-	
-	
+
 	if(deviation.is_deleted):
 		print('[ ! ] The post had been deleted!')
 		return
@@ -37,10 +34,6 @@ def parsejobs(deviation):
 	else:
 		readableTime = 'withoutDateTime'
 	if(deviation.is_downloadable == False):
-		
-		#print('preview:\n', deviation.preview)
-		#print('thumbs:\n', deviation.thumbs)
-		#print('content:\n', deviation.content)
 		try:
 			imageDownloadUrl = deviation.content['src']
 			regexSearch = re.search(r"https:\/\/.+net(.+)\/(.+)", imageDownloadUrl)
@@ -156,8 +149,6 @@ if __name__ == "__main__":
 	
 	poolTime = time.time() - t3
 	total_time = time.time() - t1
-		#i = i + 1
-	#f.close()
 
 	apiLoopTime = t2 - t1
 	writeCsvTime = t3 - t2
