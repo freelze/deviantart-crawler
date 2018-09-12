@@ -104,7 +104,7 @@ if __name__ == "__main__":
 	
 	path = './' + crawlUserName
 	if not os.path.exists(path):
-		os.mkdir(path);
+		os.mkdir(path)
 	
 	# while there are more deviations to fetch
 	while has_more:
