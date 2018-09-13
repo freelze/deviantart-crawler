@@ -29,7 +29,7 @@ def parsejobs(deviation):
 		print('[ ! ] The post had been deleted!')
 		return
 	if(deviation.published_time):
-		readableTime = datetime.datetime.fromtimestamp(deviation.published_time).isoformat()
+		readableTime = datetime.datetime.fromtimestamp( int(deviation.published_time) ).isoformat()
 		readableTime = re.search(r'(.+)T', readableTime).group(1)
 	else:
 		readableTime = 'withoutDateTime'
@@ -136,8 +136,11 @@ if __name__ == "__main__":
 		writer.writerow(['Date','Url','Title','Downloadable','filesize_download','filesize_content-src','content-src'])
 		writer = csv.writer(csvfile, delimiter=',')
 		for deviation in deviations:
-			_readableTime = datetime.datetime.fromtimestamp(deviation.published_time).isoformat()
-			_date = re.search(r'(.+)T', _readableTime).group(1)
+			_readableTime = ""
+			_date = ""
+			if(deviation.published_time):
+				_readableTime = datetime.datetime.fromtimestamp( int(deviation.published_time) ).isoformat()
+				_date = re.search(r'(.+)T', _readableTime).group(1)
 			writer.writerow( [ _date,deviation.url,deviation.title,deviation.is_downloadable,deviation.download_filesize,deviation.content['filesize'],deviation.content['src'] ] )
 
 	t3 = time.time()
